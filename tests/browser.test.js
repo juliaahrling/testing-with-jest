@@ -32,3 +32,15 @@ describe('Clicking "Pusha till stacken"', () => {
 		await alert.accept();
 	});
 });
+
+test('The alert input text should show in the element with id "top_of_stack"', async () => {
+    let push = await driver.findElement(By.id('push'));
+	await push.click();
+	let alert = await driver.switchTo().alert();
+	await alert.sendKeys("Skumbananer");
+	await alert.accept();
+    let peek = await driver.findElement(By.id('peek'));
+	await peek.click();
+    let stack = await driver.findElement(By.id('top_of_stack')).getText();
+	expect(stack).toEqual("Skumbananer");
+});
